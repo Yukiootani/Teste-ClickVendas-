@@ -3,53 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Pro</title>
+    <title>Admin Pro</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background: #f4f6f8; padding: 20px; color: #333; }
-        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        h2 { margin-top: 0; font-size: 1.1rem; border-bottom: 1px solid #eee; padding-bottom: 15px; }
-        label { display: block; margin-top: 15px; font-weight: 600; font-size: 0.9rem; color: #555; }
-        input { width: 100%; padding: 12px; margin-top: 8px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box; }
-        input:focus { border-color: #000; outline: none; }
-        button { width: 100%; padding: 16px; background: #000; color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 1rem; margin-top: 25px; cursor: pointer; }
-        .btn-outline { background: white; border: 2px solid #000; color: #000; margin-top: 10px; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background: #f4f6f8; margin: 0; padding: 0; color: #333; }
+        
+        /* Navegação Superior */
+        .nav { background: #fff; padding: 15px; display: flex; justify-content: space-around; border-bottom: 1px solid #ddd; position: sticky; top: 0; }
+        .nav-item { font-weight: 600; color: #888; cursor: pointer; padding-bottom: 5px; }
+        .nav-item.active { color: #000; border-bottom: 2px solid #000; }
+
+        .container { padding: 20px; max-width: 600px; margin: 0 auto; }
+        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 15px; }
+        
+        input, select { width: 100%; padding: 12px; margin-top: 8px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        button { width: 100%; padding: 15px; background: #000; color: white; border: none; border-radius: 8px; font-weight: bold; margin-top: 15px; }
+
+        /* Estilo da Lista de Pedidos Visual */
+        .order-item { border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 15px; }
+        .order-header { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 5px; }
+        .order-status { background: #fff3cd; color: #856404; padding: 2px 8px; border-radius: 10px; font-size: 0.8rem; }
+        .order-desc { font-size: 0.9rem; color: #666; }
+        .btn-small { padding: 8px; font-size: 0.8rem; width: auto; margin-right: 5px; }
+        
+        /* Controle de Abas */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <h2>🎨 Identidade da Loja</h2>
-        <label>Nome do Negócio</label>
-        <input type="text" id="shopName">
-        
-        <label>Cor da Marca</label>
-        <input type="color" id="shopColor" style="height: 50px; padding: 5px;">
-        
-        <button onclick="salvarConfig()">SALVAR ALTERAÇÕES</button>
+    <div class="nav">
+        <div class="nav-item active" onclick="mudarAba('tab-pedidos', this)">📄 Pedidos</div>
+        <div class="nav-item" onclick="mudarAba('tab-produtos', this)">🍔 Produtos</div>
+        <div class="nav-item" onclick="mudarAba('tab-loja', this)">🎨 Loja</div>
     </div>
 
-    <div class="card">
-        <h2>🍔 Adicionar Produto</h2>
-        <label>Nome do Item</label>
-        <input type="text" id="prodName" placeholder="Ex: X-Salada">
+    <div class="container">
         
-        <label>Preço (R$)</label>
-        <input type="number" id="prodPrice" placeholder="0.00">
+        <div id="tab-pedidos" class="tab-content active">
+            <div class="card">
+                <h3>Últimos Pedidos (Exemplo)</h3>
+                
+                <div class="order-item">
+                    <div class="order-header">
+                        <span>#1024 - João Silva</span>
+                        <span class="order-status">Pendente</span>
+                    </div>
+                    <div class="order-desc">1x Pizza Calabresa, 1x Coca-Cola</div>
+                    <div style="margin-top:10px;">
+                        <button class="btn-small" style="background:#28a745;">Aceitar</button>
+                        <button class="btn-small" style="background:#dc3545;">Recusar</button>
+                    </div>
+                </div>
 
-        <label>URL da Imagem (Opcional)</label>
-        <input type="text" id="prodImg" placeholder="https://...">
+                <div class="order-item">
+                    <div class="order-header">
+                        <span>#1023 - Maria Souza</span>
+                        <span class="order-status" style="background:#d4edda; color:#155724;">Entregue</span>
+                    </div>
+                    <div class="order-desc">2x X-Salada</div>
+                </div>
+            </div>
+        </div>
 
-        <button onclick="salvarProduto()">CADASTRAR ITEM</button>
+        <div id="tab-produtos" class="tab-content">
+            <div class="card">
+                <h3>Novo Produto</h3>
+                <label>Nome</label><input type="text" id="prodName">
+                <label>Preço</label><input type="number" id="prodPrice">
+                <button onclick="salvarProduto()">Salvar</button>
+            </div>
+            <div class="card" style="text-align:center; color:#888;">
+                <p>Lista de produtos apareceria aqui...</p>
+            </div>
+        </div>
+
+        <div id="tab-loja" class="tab-content">
+            <div class="card">
+                <h3>Aparência</h3>
+                <label>Nome</label><input type="text" id="shopName">
+                <label>Cor</label><input type="color" id="shopColor" style="height:40px;">
+                <button onclick="salvarConfig()">Atualizar Site</button>
+            </div>
+            <button onclick="window.location.href='index.html'" style="background:white; color:black; border:2px solid black;">Ver Loja</button>
+        </div>
+
     </div>
-
-    <button class="btn-outline" onclick="window.location.href='index.html'">
-        👁️ VISUALIZAR LOJA
-    </button>
 
     <script src="js/db.js"></script>
     <script>
-        // Mesmo script simples de antes
+        // Lógica Visual das Abas
+        function mudarAba(idTab, elemento) {
+            // Esconde todas
+            document.querySelectorAll('.tab-content').forEach(d => d.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            
+            // Mostra a certa
+            document.getElementById(idTab).classList.add('active');
+            elemento.classList.add('active');
+        }
+
+        // Carrega dados iniciais
         const dados = DB.get();
         document.getElementById('shopName').value = dados.config.nome;
         document.getElementById('shopColor').value = dados.config.cor;
@@ -59,19 +114,18 @@
                 nome: document.getElementById('shopName').value,
                 cor: document.getElementById('shopColor').value
             });
-            alert('✅ Design atualizado!');
+            alert('Configuração Salva!');
         }
 
         function salvarProduto() {
-            const imgInput = document.getElementById('prodImg').value;
             const novo = {
                 id: Date.now(),
                 nome: document.getElementById('prodName').value,
                 preco: parseFloat(document.getElementById('prodPrice').value),
-                img: imgInput || "https://source.unsplash.com/random/300x300/?food"
+                img: "https://via.placeholder.com/150"
             };
             DB.adicionarProduto(novo);
-            alert('✅ Produto na vitrine!');
+            alert('Produto Criado!');
         }
     </script>
 </body>
