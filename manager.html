@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin</title>
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <div class="container">
+        <h2>⚙️ Configuração da Loja</h2>
+        
+        <label>Nome da Loja:</label>
+        <input type="text" id="shopName">
+
+        <label>Cor Principal (Hex):</label>
+        <input type="color" id="shopColor">
+
+        <button onclick="salvarConfig()">💾 SALVAR APARÊNCIA</button>
+
+        <hr style="margin: 30px 0;">
+
+        <h2>📦 Novo Produto</h2>
+        <label>Nome:</label>
+        <input type="text" id="prodName">
+        
+        <label>Preço (R$):</label>
+        <input type="number" id="prodPrice">
+
+        <button onclick="salvarProduto()">➕ ADICIONAR PRODUTO</button>
+
+        <br><br>
+        <a href="index.html" style="display:block; text-align:center; padding: 15px;">👉 Ver Loja (Ir para Site)</a>
+    </div>
+
+    <script src="js/db.js"></script>
+    <script>
+        // Lógica do Admin (Inline para facilitar teste no iPhone)
+        const dados = DB.get();
+        document.getElementById('shopName').value = dados.config.nome;
+        document.getElementById('shopColor').value = dados.config.cor;
+
+        function salvarConfig() {
+            DB.atualizarConfig({
+                nome: document.getElementById('shopName').value,
+                cor: document.getElementById('shopColor').value
+            });
+            alert('Aparência Salva!');
+        }
+
+        function salvarProduto() {
+            const novo = {
+                id: Date.now(),
+                nome: document.getElementById('prodName').value,
+                preco: parseFloat(document.getElementById('prodPrice').value),
+                img: "https://via.placeholder.com/150" // Imagem fixa pro teste
+            };
+            DB.adicionarProduto(novo);
+            alert('Produto Criado!');
+            document.getElementById('prodName').value = "";
+            document.getElementById('prodPrice').value = "";
+        }
+    </script>
+</body>
+</html>
