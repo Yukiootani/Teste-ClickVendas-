@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Loja Visual Pro</title>
+    <title>Loja Completa Teste</title>
     <link rel="stylesheet" href="css/shop.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -38,30 +38,32 @@
         </div>
         
         <div class="cart-item">
-            <span>1x X-Bacon Especial</span>
-            <span class="cart-item-price">R$ 35,00</span>
-        </div>
-        <div class="cart-item">
-            <span>1x Coca-Cola Lata</span>
-            <span class="cart-item-price">R$ 6,00</span>
+            <span>1x Produto Exemplo</span>
+            <span class="cart-item-price">¥ 5,000</span>
         </div>
         <div style="border-top:1px dashed #ddd; margin:10px 0;"></div>
         <div class="cart-item" style="font-size:1.1rem; font-weight:bold;">
             <span>TOTAL</span>
-            <span>R$ 41,00</span>
+            <span>¥ 5,000</span>
+        </div>
+
+        <div class="coupon-area">
+            <i class="fas fa-ticket-alt" style="align-self: center; color: #666;"></i>
+            <input type="text" class="coupon-input" placeholder="Cupom de Desconto">
+            <button class="btn-apply" onclick="alert('Cupom BEMVINDO aplicado! -10%')">APLICAR</button>
         </div>
 
         <div class="input-group">
             <label>Forma de Entrega</label>
-            <select><option>🛵 Entrega (Moto)</option><option>🏃 Retirar no Balcão</option></select>
+            <select><option>🚚 Transportadora (JP Post)</option><option>🏪 Retirar na Loja</option></select>
         </div>
         <div class="input-group">
-            <label>Seu Bairro</label>
-            <select><option>Centro (+ R$ 5,00)</option><option>Zona Norte (+ R$ 8,00)</option></select>
+            <label>Endereço / Prefeitura</label>
+            <select><option>Tokyo</option><option>Osaka</option><option>Aichi</option></select>
         </div>
 
         <button class="btn-checkout">
-            <i class="fab fa-whatsapp"></i> ENVIAR PEDIDO
+            <i class="fab fa-whatsapp"></i> FINALIZAR PEDIDO
         </button>
     </div>
 
