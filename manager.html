@@ -3,39 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Pro</title>
+    <title>Admin Pro Max</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; background: #f4f6f8; margin: 0; padding: 0; color: #333; }
         
-        /* Navegação Superior */
-        .nav { background: #fff; padding: 15px; display: flex; justify-content: space-around; border-bottom: 1px solid #ddd; position: sticky; top: 0; }
-        .nav-item { font-weight: 600; color: #888; cursor: pointer; padding-bottom: 5px; }
+        .nav { background: #fff; padding: 15px 5px; display: flex; justify-content: space-between; border-bottom: 1px solid #ddd; position: sticky; top: 0; z-index: 10; overflow-x: auto; }
+        .nav-item { font-weight: 600; color: #888; cursor: pointer; padding: 5px 10px; white-space: nowrap; font-size: 0.9rem; }
         .nav-item.active { color: #000; border-bottom: 2px solid #000; }
 
-        .container { padding: 20px; max-width: 600px; margin: 0 auto; }
+        .container { padding: 20px; max-width: 600px; margin: 0 auto; padding-bottom: 80px; }
         .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 15px; }
         
-        input, select { width: 100%; padding: 12px; margin-top: 8px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-        button { width: 100%; padding: 15px; background: #000; color: white; border: none; border-radius: 8px; font-weight: bold; margin-top: 15px; }
-
-        /* Estilo da Lista de Pedidos Visual */
-        .order-item { border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 15px; }
-        .order-header { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 5px; }
-        .order-status { background: #fff3cd; color: #856404; padding: 2px 8px; border-radius: 10px; font-size: 0.8rem; }
-        .order-desc { font-size: 0.9rem; color: #666; }
-        .btn-small { padding: 8px; font-size: 0.8rem; width: auto; margin-right: 5px; }
+        input, select, textarea { width: 100%; padding: 12px; margin-top: 8px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-family: inherit; }
+        button { width: 100%; padding: 15px; background: #000; color: white; border: none; border-radius: 8px; font-weight: bold; margin-top: 15px; cursor: pointer; }
         
-        /* Controle de Abas */
-        .tab-content { display: none; }
+        /* Cores de Botões Especiais */
+        .btn-push { background: #6c5ce7; } /* Roxo Marketing */
+        .btn-save { background: #00b894; } /* Verde Salvar */
+
+        .tab-content { display: none; animation: fadeIn 0.3s; }
         .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
     <div class="nav">
         <div class="nav-item active" onclick="mudarAba('tab-pedidos', this)">📄 Pedidos</div>
-        <div class="nav-item" onclick="mudarAba('tab-produtos', this)">🍔 Produtos</div>
+        <div class="nav-item" onclick="mudarAba('tab-produtos', this)">📦 Produtos</div>
+        <div class="nav-item" onclick="mudarAba('tab-marketing', this)">🚀 Marketing</div>
         <div class="nav-item" onclick="mudarAba('tab-loja', this)">🎨 Loja</div>
     </div>
 
@@ -43,68 +40,79 @@
         
         <div id="tab-pedidos" class="tab-content active">
             <div class="card">
-                <h3>Últimos Pedidos (Exemplo)</h3>
-                
-                <div class="order-item">
-                    <div class="order-header">
-                        <span>#1024 - João Silva</span>
-                        <span class="order-status">Pendente</span>
-                    </div>
-                    <div class="order-desc">1x Pizza Calabresa, 1x Coca-Cola</div>
-                    <div style="margin-top:10px;">
-                        <button class="btn-small" style="background:#28a745;">Aceitar</button>
-                        <button class="btn-small" style="background:#dc3545;">Recusar</button>
-                    </div>
-                </div>
-
-                <div class="order-item">
-                    <div class="order-header">
-                        <span>#1023 - Maria Souza</span>
-                        <span class="order-status" style="background:#d4edda; color:#155724;">Entregue</span>
-                    </div>
-                    <div class="order-desc">2x X-Salada</div>
+                <h3>Gerenciar Pedidos</h3>
+                <div style="padding: 20px; text-align: center; color: #999; border: 2px dashed #eee; border-radius: 8px;">
+                    Nenhum pedido novo no momento.
                 </div>
             </div>
         </div>
 
         <div id="tab-produtos" class="tab-content">
             <div class="card">
-                <h3>Novo Produto</h3>
+                <h3>Cadastrar Produto</h3>
                 <label>Nome</label><input type="text" id="prodName">
                 <label>Preço</label><input type="number" id="prodPrice">
-                <button onclick="salvarProduto()">Salvar</button>
+                <label>Foto (URL)</label><input type="text" id="prodImg" placeholder="https://...">
+                <button onclick="salvarProduto()">Salvar Produto</button>
             </div>
-            <div class="card" style="text-align:center; color:#888;">
-                <p>Lista de produtos apareceria aqui...</p>
+        </div>
+
+        <div id="tab-marketing" class="tab-content">
+            <div class="card">
+                <h3 style="color: #6c5ce7;">📢 Push Notification</h3>
+                <p style="font-size: 0.8rem; color: #666;">Envie alertas para todos os clientes.</p>
+                
+                <label>Título</label>
+                <input type="text" placeholder="Ex: Promoção Relâmpago!">
+                
+                <label>Mensagem</label>
+                <textarea rows="3" placeholder="Ex: Todo o site com 20% OFF só hoje. Aproveite!"></textarea>
+                
+                <button class="btn-push" onclick="alert('📢 SIMULAÇÃO:\nNotificação enviada para 1.540 dispositivos!')">
+                    ENVIAR PUSH AGORA
+                </button>
+            </div>
+
+            <div class="card">
+                <h3>🎟️ Cupons de Desconto</h3>
+                <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                    <input type="text" placeholder="Código (Ex: PROMO10)" style="margin:0;">
+                    <input type="number" placeholder="%" style="width: 80px; margin:0;">
+                </div>
+                <button class="btn-save" onclick="alert('Cupom Criado!')">Criar Cupom</button>
+                
+                <div style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px;">
+                    <small>Ativos:</small>
+                    <div style="background: #eee; padding: 5px 10px; border-radius: 4px; display: inline-block; margin-top: 5px; font-size: 0.8rem;">
+                        <b>BEMVINDO</b> (10% OFF) 🗑️
+                    </div>
+                </div>
             </div>
         </div>
 
         <div id="tab-loja" class="tab-content">
             <div class="card">
-                <h3>Aparência</h3>
-                <label>Nome</label><input type="text" id="shopName">
-                <label>Cor</label><input type="color" id="shopColor" style="height:40px;">
-                <button onclick="salvarConfig()">Atualizar Site</button>
+                <h3>Identidade Visual</h3>
+                <label>Nome da Loja</label><input type="text" id="shopName">
+                <label>Cor Principal</label><input type="color" id="shopColor" style="height:40px;">
+                <button class="btn-save" onclick="salvarConfig()">Atualizar Aparência</button>
             </div>
-            <button onclick="window.location.href='index.html'" style="background:white; color:black; border:2px solid black;">Ver Loja</button>
+            <button onclick="window.location.href='index.html'" style="background:white; color:black; border:2px solid black;">
+                👁️ Ver Loja
+            </button>
         </div>
 
     </div>
 
     <script src="js/db.js"></script>
     <script>
-        // Lógica Visual das Abas
         function mudarAba(idTab, elemento) {
-            // Esconde todas
             document.querySelectorAll('.tab-content').forEach(d => d.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-            
-            // Mostra a certa
             document.getElementById(idTab).classList.add('active');
             elemento.classList.add('active');
         }
 
-        // Carrega dados iniciais
         const dados = DB.get();
         document.getElementById('shopName').value = dados.config.nome;
         document.getElementById('shopColor').value = dados.config.cor;
@@ -122,7 +130,7 @@
                 id: Date.now(),
                 nome: document.getElementById('prodName').value,
                 preco: parseFloat(document.getElementById('prodPrice').value),
-                img: "https://via.placeholder.com/150"
+                img: document.getElementById('prodImg').value || "https://via.placeholder.com/150"
             };
             DB.adicionarProduto(novo);
             alert('Produto Criado!');
