@@ -1,8 +1,8 @@
-/* css/shop.css - Versão PRO 2.0 */
+/* css/shop.css - Versão VISUAL COMPLETA */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 
 :root {
-    --primary: #000; /* JS vai mudar isso */
+    --primary: #000;
     --bg-body: #F2F4F7;
     --card-bg: #FFFFFF;
     --text-dark: #1D1D1F;
@@ -12,34 +12,42 @@
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg-body); padding-bottom: 100px; color: var(--text-dark); }
 
-/* Header App */
+/* Header & Swiper (Iguais) */
 header { background: var(--card-bg); padding: 15px 20px; position: sticky; top: 0; z-index: 50; box-shadow: 0 1px 0 rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; }
 .brand h1 { margin: 0; font-size: 1.1rem; font-weight: 700; letter-spacing: -0.5px; }
 .status-badge { font-size: 0.7rem; background: #E3FCEF; color: #006644; padding: 4px 8px; border-radius: 20px; font-weight: 600; }
 
-/* Carrossel (Swiper) */
 .swiper { width: 100%; height: 200px; padding-top: 15px; padding-bottom: 10px; }
 .swiper-slide { background: #ddd; border-radius: 12px; overflow: hidden; transform: scale(0.94); transition: 0.3s; box-shadow: var(--shadow); }
 .swiper-slide-active { transform: scale(1); }
 .banner-img { width: 100%; height: 100%; object-fit: cover; }
 
-/* Título Seção */
+/* Grid Produtos */
 .section-title { padding: 0 20px; margin-top: 15px; font-size: 1rem; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
-.see-all { font-size: 0.8rem; color: var(--primary); font-weight: 600; text-decoration: none; }
-
-/* Grid Pro */
 .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px 20px; }
 .card { background: var(--card-bg); border-radius: 16px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.04); position: relative; }
-
 .img-box { height: 140px; background: #f0f0f0; position: relative; }
 .img-box img { width: 100%; height: 100%; object-fit: cover; }
 .btn-plus { position: absolute; bottom: 8px; right: 8px; width: 32px; height: 32px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.15); color: var(--primary); font-size: 1.2rem; cursor: pointer; }
-
 .info { padding: 12px; }
-.name { font-size: 0.9rem; font-weight: 600; line-height: 1.3; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 2.4em; }
-.price { font-size: 1rem; font-weight: 800; color: var(--text-dark); }
+.name { font-size: 0.9rem; font-weight: 600; height: 2.4em; overflow: hidden; }
+.price { font-size: 1rem; font-weight: 800; }
 
-/* Barra Flutuante (Bottom Sheet) */
-.float-cart { position: fixed; bottom: 20px; left: 20px; right: 20px; background: var(--primary); color: white; padding: 15px 20px; border-radius: 16px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 100; cursor: pointer; transition: transform 0.2s; }
-.float-cart:active { transform: scale(0.98); }
-.cart-total { font-weight: 700; font-size: 1.1rem; }
+/* --- NOVO: MODAL DO CARRINHO (Estilo iFood) --- */
+.cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 200; display: none; opacity: 0; transition: opacity 0.3s; }
+.cart-overlay.open { display: block; opacity: 1; }
+
+.cart-drawer { position: fixed; bottom: -100%; left: 0; width: 100%; background: white; border-radius: 20px 20px 0 0; padding: 20px; z-index: 201; transition: bottom 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); max-height: 80vh; overflow-y: auto; }
+.cart-drawer.open { bottom: 0; }
+
+.cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 15px; }
+.cart-item { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 0.9rem; }
+.cart-item-price { font-weight: bold; }
+.input-group { margin-top: 20px; }
+.input-group label { display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 5px; }
+.input-group input, .input-group select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; }
+
+.btn-checkout { background: #25d366; color: white; width: 100%; padding: 15px; border: none; border-radius: 12px; font-weight: bold; font-size: 1rem; margin-top: 20px; display: flex; justify-content: center; align-items: center; gap: 10px; }
+
+/* Botão Flutuante */
+.float-cart { position: fixed; bottom: 20px; left: 20px; right: 20px; background: var(--primary); color: white; padding: 15px 20px; border-radius: 16px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 100; cursor: pointer; }
