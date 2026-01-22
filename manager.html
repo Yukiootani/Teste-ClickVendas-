@@ -3,39 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Admin</title>
-    <link rel="stylesheet" href="css/admin.css">
+    <title>Painel Pro</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background: #f4f6f8; padding: 20px; color: #333; }
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        h2 { margin-top: 0; font-size: 1.1rem; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+        label { display: block; margin-top: 15px; font-weight: 600; font-size: 0.9rem; color: #555; }
+        input { width: 100%; padding: 12px; margin-top: 8px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box; }
+        input:focus { border-color: #000; outline: none; }
+        button { width: 100%; padding: 16px; background: #000; color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 1rem; margin-top: 25px; cursor: pointer; }
+        .btn-outline { background: white; border: 2px solid #000; color: #000; margin-top: 10px; }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h2>⚙️ Configuração da Loja</h2>
-        
-        <label>Nome da Loja:</label>
+
+    <div class="card">
+        <h2>🎨 Identidade da Loja</h2>
+        <label>Nome do Negócio</label>
         <input type="text" id="shopName">
-
-        <label>Cor Principal (Hex):</label>
-        <input type="color" id="shopColor">
-
-        <button onclick="salvarConfig()">💾 SALVAR APARÊNCIA</button>
-
-        <hr style="margin: 30px 0;">
-
-        <h2>📦 Novo Produto</h2>
-        <label>Nome:</label>
-        <input type="text" id="prodName">
         
-        <label>Preço (R$):</label>
-        <input type="number" id="prodPrice">
-
-        <button onclick="salvarProduto()">➕ ADICIONAR PRODUTO</button>
-
-        <br><br>
-        <a href="index.html" style="display:block; text-align:center; padding: 15px;">👉 Ver Loja (Ir para Site)</a>
+        <label>Cor da Marca</label>
+        <input type="color" id="shopColor" style="height: 50px; padding: 5px;">
+        
+        <button onclick="salvarConfig()">SALVAR ALTERAÇÕES</button>
     </div>
+
+    <div class="card">
+        <h2>🍔 Adicionar Produto</h2>
+        <label>Nome do Item</label>
+        <input type="text" id="prodName" placeholder="Ex: X-Salada">
+        
+        <label>Preço (R$)</label>
+        <input type="number" id="prodPrice" placeholder="0.00">
+
+        <label>URL da Imagem (Opcional)</label>
+        <input type="text" id="prodImg" placeholder="https://...">
+
+        <button onclick="salvarProduto()">CADASTRAR ITEM</button>
+    </div>
+
+    <button class="btn-outline" onclick="window.location.href='index.html'">
+        👁️ VISUALIZAR LOJA
+    </button>
 
     <script src="js/db.js"></script>
     <script>
-        // Lógica do Admin (Inline para facilitar teste no iPhone)
+        // Mesmo script simples de antes
         const dados = DB.get();
         document.getElementById('shopName').value = dados.config.nome;
         document.getElementById('shopColor').value = dados.config.cor;
@@ -45,20 +59,19 @@
                 nome: document.getElementById('shopName').value,
                 cor: document.getElementById('shopColor').value
             });
-            alert('Aparência Salva!');
+            alert('✅ Design atualizado!');
         }
 
         function salvarProduto() {
+            const imgInput = document.getElementById('prodImg').value;
             const novo = {
                 id: Date.now(),
                 nome: document.getElementById('prodName').value,
                 preco: parseFloat(document.getElementById('prodPrice').value),
-                img: "https://via.placeholder.com/150" // Imagem fixa pro teste
+                img: imgInput || "https://source.unsplash.com/random/300x300/?food"
             };
             DB.adicionarProduto(novo);
-            alert('Produto Criado!');
-            document.getElementById('prodName').value = "";
-            document.getElementById('prodPrice').value = "";
+            alert('✅ Produto na vitrine!');
         }
     </script>
 </body>
